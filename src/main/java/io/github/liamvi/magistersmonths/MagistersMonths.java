@@ -1,0 +1,15 @@
+package io.github.liamvi.magistersmonths;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class MagistersMonths extends JavaPlugin {
+
+    @Override
+    public void onEnable() {
+        getLogger().info("onEnable is called!");
+    }
+    @Override
+    public void onDisable() {
+        getLogger().info("onDisable is called!");
+    }
+}

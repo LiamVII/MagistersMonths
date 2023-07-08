@@ -1,0 +1,4 @@
+name: Magister's Months
+version: 0.1.0
+main: io.gitbuy.liamvi.magistersmonths.MagistersMonths
+api-version: 1.19
