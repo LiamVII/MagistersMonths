@@ -1,0 +1,30 @@
+Hammer - 30
+(Midwinter)
+Tarsakh - 30
+(Greengrass)
+Flamerule - 30
+(Midsummer)
+Eleint - 30
+(Highharvestide)
+Uktar - 30
+(Feast of the Moon)
+
+Leap years - Flamerule 32, Shieldmeet - this seems like a lot of work for little return (4 years is once an IRL year)
+Can be done though
+
+
+Given a day is 8 hours, a festival might fall at like 12:00am on a Monday night. May be best to approach these differently?
+
+375-day year, each festival lasts 24-hours real-time.
+
+DD/MM/YYYY format, simply add a label to each MM.
+20:00 - "The 15th of Hammer" - 1491 DR
+
+375 / 3 = 125 IRL days per IG year
+2.92 IC years per IRL year
+
+1 day = 8 hours
+Need to store the current date every time it increases & on server shutdown
+Need to retrieve the current date every time plugin is enabled
+Think the Java date class will be too annoying - just create a custom Date class?
+

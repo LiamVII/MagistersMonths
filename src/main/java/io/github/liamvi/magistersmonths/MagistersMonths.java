@@ -1,9 +1,9 @@
 package io.github.liamvi.magistersmonths;
 
-import io.github.liamvi.magistersmonths.time.TimeWarpTask;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
+
 
 public class MagistersMonths extends JavaPlugin {
 
@@ -15,16 +15,11 @@ public class MagistersMonths extends JavaPlugin {
                 world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
                 getLogger().info("Game Rule DO_DAYLIGHT_CYCLE in world " + world.getName() + " set to FALSE.");
             }
-            TimeWarpTask task = new TimeWarpTask();
-            task.runTaskTimer(this, 0, 6);
+           // TimeWarpTask timeWarpTask = new TimeWarpTask(this);
+           // timeWarpTask.runTaskTimer(this, 0L, 6L);
         } else {
             getLogger().info("ERROR: World defined in configuration is invalid. Day/night cycles will not work.");
         }
-
-
-
-
-
 
     }
     @Override
@@ -34,7 +29,6 @@ public class MagistersMonths extends JavaPlugin {
 
 
     public String getConfigWorld() { // needs to be changed to return a World variable, taken from config file
-        String worldName = "filler for now";
-        return worldName;
+        return "filler";
     }
 }
