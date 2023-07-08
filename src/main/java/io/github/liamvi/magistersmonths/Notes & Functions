@@ -1,0 +1,42 @@
+1 Minecraft day = 20 minutes(24000 ticks)
+1 real day = 24 hours (1728000 ticks)
+1 CoA day = 8 hours (576000 ticks)
+
+Each tick has to be equal to 24 ticks to simulate an 8 hour day
+However, the day is supposed to be 5 hours day / 3 hours night.
+
+Daytime is between 0 - 12000 ticks (0 - 288000)
+Sunset takes place between 12000 & 13000 ticks (equivalent to 288000 - 312000 for an 8 hour cycle)
+Nighttime is between 13000 & 23000 ticks (312000 - 552000)
+Sunrise is between 23000 - 24000 (552000 - 576000)
+
+We need daytime to be 60% of the time, nighttime to be 35%, and sunset & sunrise to be 2.5%
+
+That means daytime needs to be 0 - 345600 ticks
+Sunset is 14,400 (so 345600 - 360000)
+Nighttime is 201600 (360000 - 561600)
+Sunrise is (561600 - 576000)
+
+Daytime - 4.8 hours
+Sunset - 20 minutes
+Nighttime - 2.8 hours
+Sunrise - 20 minutes
+
+Easiest way is probably to progress slower through the daytime ticks
+And faster through the nighttime ticks
+
+If day is 10 minutes/night 10
+Day needs 30 seconds for every tick
+Night needs 18 seconds for every tick
+
+5 hours = 18000 seconds
+3 hours = 10800 seconds
+
+Pseudocode:
+
+If world.gettime is less than 12000
+world.settime (gettime + 1) every 30 seconds
+else
+world.settime (gettime + 1) every 18 seconds
+
+
