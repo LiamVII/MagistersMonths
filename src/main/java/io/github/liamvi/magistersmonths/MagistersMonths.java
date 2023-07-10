@@ -1,5 +1,6 @@
 package io.github.liamvi.magistersmonths;
 
+import io.github.liamvi.magistersmonths.calendar.HarptosCalendar;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,7 +20,6 @@ public class MagistersMonths extends JavaPlugin {
         } else {
             getLogger().info("ERROR: World defined in configuration is invalid. Day/night cycles will not work.");
         }
-
     }
     @Override
     public void onDisable() {

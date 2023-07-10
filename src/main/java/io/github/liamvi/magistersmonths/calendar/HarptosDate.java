@@ -25,6 +25,10 @@ public class HarptosDate extends Date {
         return (EPOCHDATETIME - realTime) * 3;
     }
 
+    public long getEpoch() {
+        return EPOCHDATETIME;
+    }
+
 
 
 
