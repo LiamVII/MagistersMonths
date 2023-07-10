@@ -13,7 +13,7 @@
 https://forgottenrealms.fandom.com/wiki/Calendar_of_Harptos
 
 - Implementation of a non-Gregorian calendar system with twelve 30-day months.
-- Year, month, week and day output based on the calculated date-time.
+- Year, month, week, day & military time output based on the calculated date-time.
 - (Experimental): Holidays existing outside the normal month structure, e.g. Midwinter occurs between 30/01 and 01/02.
   - Each holiday should occur over 24 real-time hours.
 
