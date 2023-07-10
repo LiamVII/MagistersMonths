@@ -10,13 +10,12 @@ public class MagistersMonths extends JavaPlugin {
     @Override
     public void onEnable() {
         World world = this.getServer().getWorld(getConfigWorld());// will be able to simply pass the World object later
+        // First we check to make sure the daylight cycle is disabled, and if not, we disable it. We need full control.
         if (world != null) {
             if (Boolean.TRUE.equals(world.getGameRuleValue(GameRule.DO_DAYLIGHT_CYCLE))) {
                 world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
                 getLogger().info("Game Rule DO_DAYLIGHT_CYCLE in world " + world.getName() + " set to FALSE.");
             }
-           // TimeWarpTask timeWarpTask = new TimeWarpTask(this);
-           // timeWarpTask.runTaskTimer(this, 0L, 6L);
         } else {
             getLogger().info("ERROR: World defined in configuration is invalid. Day/night cycles will not work.");
         }

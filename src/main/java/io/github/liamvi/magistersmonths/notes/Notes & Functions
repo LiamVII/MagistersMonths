@@ -32,11 +32,4 @@ Night needs 18 seconds for every tick
 5 hours = 18000 seconds
 3 hours = 10800 seconds
 
-Pseudocode:
-
-If world.gettime is less than 12000
-world.settime (gettime + 1) every 30 seconds
-else
-world.settime (gettime + 1) every 18 seconds
-
 

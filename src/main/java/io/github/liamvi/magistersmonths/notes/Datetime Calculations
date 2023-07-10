@@ -1,0 +1,51 @@
+Deterministic approach to calculating date-time
+
+
+Every second it runs, it gets the calendar time (for the 8 hour days)
+Sets the world time to the real world time
+Want a function that converts
+
+if the hour is below 15, it goes into the 12000 slot (day)
+if it's above 15, you go into the 12000+ slot (night)
+
+Java Date class stores an instant of the time with a long count of milliseconds since 1970-01-01 00:00
+So we can store the epoch date as the milliseconds at epoch
+Then calculate the difference between the epoch and the present time
+And multiply the result by 3 to access the current Harptos time
+
+Provisional model -
+
+HarptosDate extending Date, used only for calculation (not sure Date deprecation matters for the project but Cal is better practice).
+Calendar:
+    - Two options:
+        - Handle the formatting for the calendar using a specific formatting class (extending SimpleDateFormat?)
+        - Attempt to build an extended class of Calendar (e.g. writing my own "GregorianCalendar" class.)
+    - Option #2 is way more effort but might be better practice, will see how it goes - if overly complex with minimal payoff, Op#1.
+
+(JodaTime may be a better library, but trying to stick to factory Java as much as possible for now.)
+
+HPDate & HPCal/Formatting would handle the deterministic calculation of time at 3x speed and the formatting for output.
+This would serve as the plugin's ultimate datetime and provide all the information necessary for other functions.
+Most critical feature to complete first.
+
+   public String getMonthName(int monthValue) {
+        String monthName = "";
+        if (monthValue > 0 && monthValue < 13) {
+            switch (monthValue) {
+                case 1 -> monthName = "Hammer";
+                case 2 -> monthName = "Alturiak";
+                case 3 -> monthName = "Ches";
+                case 4 -> monthName = "Tarsakh";
+                case 5 -> monthName = "Mirtul";
+                case 6 -> monthName = "Kythorn";
+                case 7 -> monthName = "Flamerule";
+                case 8 -> monthName = "Eleasis";
+                case 9 -> monthName = "Eleint";
+                case 10 -> monthName = "Marpenoth";
+                case 11 -> monthName = "Uktar";
+                case 12 -> monthName = "Nightal";
+            }
+            return monthName;
+        }
+        return null;
+    }

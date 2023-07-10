@@ -1,97 +1,34 @@
 package io.github.liamvi.magistersmonths.calendar;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Date;
 
-public class HarptosDate {
+public class HarptosDate extends Date {
 
-    private int year;
-    private int month;
-    private int day;
+    //HarptosDate is only used to extend the Date object with useful methods for calculating time on the Harptos calendar.
+    //It should not be involved in calculating the current temporal position on the Harptos calendar.
 
-    private int minutes;
-
-    private int seconds;
+    private final long EPOCHDATETIME = 0; // filler for now, will eventually pull from config files.
 
     public HarptosDate() {
-
+        super();
     }
 
-    public String getDate() {
-        return "" + year + "" + month + "" + day;
+    public long getRealTime() {
+        return super.getTime();
     }
 
-    public int getYear() {
-        return this.year;
+    // Calculate the difference between the epoch and current real time, then multiply the result by 3.
+    // The result will be 3x longer than the time passed in the real world, thus speeding time by 3x.
+    // This allows for a deterministic calculation of Harptos datetime so long as you know the epoch.
+    public long getHarptosTime() {
+        long realTime = super.getTime();
+        return (EPOCHDATETIME - realTime) * 3;
     }
 
-    public int getMonth() {
-        return this.month;
-    }
 
-    public int getDay() {
-        return this.day;
-    }
 
-    public String getMonthName(int monthValue) {
-        String monthName = "";
-        if (monthValue > 0 && monthValue < 13) {
-            switch (monthValue) {
-                case 1 -> monthName = "Hammer";
-                case 2 -> monthName = "Alturiak";
-                case 3 -> monthName = "Ches";
-                case 4 -> monthName = "Tarsakh";
-                case 5 -> monthName = "Mirtul";
-                case 6 -> monthName = "Kythorn";
-                case 7 -> monthName = "Flamerule";
-                case 8 -> monthName = "Eleasis";
-                case 9 -> monthName = "Eleint";
-                case 10 -> monthName = "Marpenoth";
-                case 11 -> monthName = "Uktar";
-                case 12 -> monthName = "Nightal";
-            }
-            return monthName;
-        }
-        return null;
-    }
 
-    public void setDate(String date) {
-        List<Integer> list = Arrays.stream(date.split("-"))
-                .map(Integer::parseInt)
-                .toList();
-        if (list.get(1) > 12 || list.get(1) < 1) {
-            throw new IllegalArgumentException("Month must be between 1 and 12.");
-        } else {
-            this.month = list.get(1);
-        }
 
-        if (list.get(2) > 31 || list.get(1) < 1) {
-            throw new IllegalArgumentException("Day must be between 1 and 31.");
-        } else {
-            this.day = list.get(2);
-        }
-        this.year = list.get(0);
-    }
-
-    public void setMonth(int month) {
-        if (month > 12 || month < 1) {
-            throw new IllegalArgumentException("Month must be between 1 and 12.");
-        } else {
-            this.month = month;
-        }
-    }
-
-    public void setDay(int day) {
-        if (day > 31 || day < 1) {
-            throw new IllegalArgumentException("Day must be between 1 and 31.");
-        } else {
-            this.day = day;
-        }
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
 
 }
+
