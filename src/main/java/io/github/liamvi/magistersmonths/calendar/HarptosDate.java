@@ -4,8 +4,9 @@ import java.util.Date;
 
 public class HarptosDate extends Date {
 
-    //HarptosDate is only used to extend the Date object with useful methods for calculating time on the Harptos calendar.
-    //It should not be involved in calculating the current temporal position on the Harptos calendar.
+    // HarptosDate is only used to extend the Date object with useful methods for calculating time on the Harptos calendar.
+    // It should not be involved in calculating the current temporal position on the Harptos calendar.
+    // Didn't realise "Date" was essentially deprecated, but it's good practice so will use it for now and Time in future.
 
     private final long EPOCHDATETIME = 0; // filler for now, will eventually pull from config files.
 
