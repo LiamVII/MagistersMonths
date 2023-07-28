@@ -1,6 +1,9 @@
 package io.github.liamvi.magistersmonths.calendar;
 
+import org.bukkit.ChatColor;
+
 import java.time.LocalTime;
+import java.time.Month;
 
 public class HarptosDateFormat {
 
@@ -15,6 +18,12 @@ public class HarptosDateFormat {
         this.YEAR = Integer.toString(year);
         this.TIME = time;
     }
+
+    public HarptosDateFormat(HarptosCalendar harptosCalendar) {
+        this(harptosCalendar.getDayOfMonth(), harptosCalendar.getMonthString(), harptosCalendar.getYear(), harptosCalendar.getCalendarTime());
+    }
+
+
 
     public String getDayOfMonth() {
         return DAY;
@@ -32,8 +41,9 @@ public class HarptosDateFormat {
         return TIME.toString();
     }
 
-    public String getFullDate() {
-        return DAY + MONTH + YEAR + TIME.toString();
+    public String getFormattedDate() {
+        return ChatColor.GOLD + DAY + " " + MONTH + " " + YEAR + ": " + TIME.toString();
+
     }
 
 }

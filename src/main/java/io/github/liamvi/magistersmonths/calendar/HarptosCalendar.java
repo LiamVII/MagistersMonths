@@ -1,28 +1,30 @@
 package io.github.liamvi.magistersmonths.calendar;
 
+import io.github.liamvi.magistersmonths.MagistersMonths;
+
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 public class HarptosCalendar {
-
     private static final TreeMap<Integer, String> monthMap = new TreeMap<>();
 
+    private MagistersMonths plugin;
     // Below is mostly a placeholder while I figure out what to do - end goal is 365 days/year.
     static {
-        monthMap.put(30, "Hammer");
-        monthMap.put(60, "Alturiak");
-        monthMap.put(90, "Ches");
-        monthMap.put(120, "Tarsakh");
-        monthMap.put(150, "Mirtul");
-        monthMap.put(180, "Kythorn");
-        monthMap.put(210, "Flamerule");
-        monthMap.put(240, "Eleasis");
-        monthMap.put(270, "Eleint");
-        monthMap.put(300, "Marpenoth");
-        monthMap.put(330, "Uktar");
-        monthMap.put(360, "Nightal");
+        monthMap.put(0, "Hammer");
+        monthMap.put(31, "Alturiak");
+        monthMap.put(61, "Ches");
+        monthMap.put(91, "Tarsakh");
+        monthMap.put(121, "Mirtul");
+        monthMap.put(151, "Kythorn");
+        monthMap.put(181, "Flamerule");
+        monthMap.put(211, "Eleasis");
+        monthMap.put(241, "Eleint");
+        monthMap.put(271, "Marpenoth");
+        monthMap.put(301, "Uktar");
+        monthMap.put(331, "Nightal");
     }
 
     // Not sure it matters, but there's a world where a lot of these methods could just be static?
@@ -32,9 +34,10 @@ public class HarptosCalendar {
     private HarptosDate harptosDate;
     private long harptosTime;
 
-    public HarptosCalendar(HarptosDate harptosDate) {
+    public HarptosCalendar(HarptosDate harptosDate, MagistersMonths plugin) {
         this.harptosDate = harptosDate;
         this.harptosTime = harptosDate.getHarptosTime();
+        this.plugin = plugin;
     }
 
     /*
@@ -57,27 +60,20 @@ public class HarptosCalendar {
         return startYear + yearCount;
     }
 
+    // TODO: Rework
     public String getMonthString() {
         int days = (int) TimeUnit.MILLISECONDS.toDays(harptosTime) + 1;
-        if (days > 365) {
-            days = days - (365 * (days / 365));
-        }
+        days = days % 365;
         return monthMap.floorEntry(days).getValue();
     }
 
     // TODO: Get current month as an integer in case we want to describe it in integer form (probably do.)
+    // No use case - ignore
 
     public int getDayOfMonth() {
         int days = (int) TimeUnit.MILLISECONDS.toDays(harptosTime) + 1;
-        int dayOfMonth;
-        if (days > 365) {
-            days = days - (365 * (days / 365));
-        }
-        if (days > 30) {
-            dayOfMonth = days / 30;
-        } else {
-            dayOfMonth = days;
-        }
+        days = days % 365;
+            int dayOfMonth = days % 30;
         return dayOfMonth;
     }
 

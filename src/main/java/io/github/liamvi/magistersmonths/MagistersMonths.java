@@ -1,6 +1,7 @@
 package io.github.liamvi.magistersmonths;
 
 import io.github.liamvi.magistersmonths.calendar.HarptosCalendar;
+import io.github.liamvi.magistersmonths.command.CalendarCommand;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -30,6 +31,7 @@ public class MagistersMonths extends JavaPlugin {
             Date today = new Date();
             this.getConfig().set("epoch-time", Long.toString(today.getTime()));
         }
+        getCommand("calendar").setExecutor(new CalendarCommand(this));
     }
     @Override
     public void onDisable() {
