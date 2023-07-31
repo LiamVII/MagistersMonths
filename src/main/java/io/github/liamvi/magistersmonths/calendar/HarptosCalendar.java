@@ -8,10 +8,14 @@ import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 public class HarptosCalendar {
-    private static final TreeMap<Integer, String> monthMap = new TreeMap<>();
 
     private MagistersMonths plugin;
-    // Below is mostly a placeholder while I figure out what to do - end goal is 365 days/year.
+    private static final TreeMap<Integer, String> monthMap = new TreeMap<>();
+
+    // Below is mostly a placeholder while I figure out what to do - end goal is 375 days/year.
+    // For ease of understanding - day 31 is the first day, meaning the remaining 29 days equal (31 + 29 = 60)
+    // So the below does actually work out to 360 days, which is the current minimum standard.
+
     static {
         monthMap.put(0, "Hammer");
         monthMap.put(31, "Alturiak");
@@ -27,9 +31,30 @@ public class HarptosCalendar {
         monthMap.put(331, "Nightal");
     }
 
-    // Not sure it matters, but there's a world where a lot of these methods could just be static?
-    // They're transforming data from HarptosDate
-    // HarptosCalendar doesn't actually need to be constructed? I could run these methods on the HarptosDate object so far.
+    /*
+    The following accounts for the extra 15 (5) days in the calendar, but classifies them as months.
+    It works, but better way of doing it?
+    Will also need to redo "Day of the Month" calculation and basically everything below
+    Accounting for 375 day years
+    Should be fine math wise just need to sketch it out
+        monthMap.put(0, "Hammer");
+        monthMap.put(31, "Midwinter");
+        monthMap.put(34, "Alturiak");
+        monthMap.put(64, "Ches");
+        monthMap.put(94, "Tarsakh");
+        monthMap.put(124, "Greengrass");
+        monthMap.put(127, "Mirtul");
+        monthMap.put(157, "Kythorn");
+        monthMap.put(187, "Flamerule");
+        monthMap.put(217, "Midsummer");
+        monthMap.put(220, "Eleasis");
+        monthMap.put(250, "Eleint");
+        monthMap.put(280, "Highharvestide");
+        monthMap.put(283, "Marpenoth");
+        monthMap.put(313, "Uktar");
+        monthMap.put(343, "Moonfest");
+        monthMap.put(346, "Nightal");
+     */
 
     private HarptosDate harptosDate;
     private long harptosTime;
@@ -41,18 +66,10 @@ public class HarptosCalendar {
     }
 
     /*
-    A big problem currently is that the time from epoch obviously begins at Day 0.
-    This is correct as 0 days have passed, but in the implementation below that would present as "Day 0 of Hammer", for ex.
-    The last day of the year would be "Day 30th of Nightal, Year 2"
-    I've just added +1 to the days count for now, but that is a bit too janky for my liking.
-    Will also mean adding +1 all over the place, honestly. Doable, but is it a good way?
-    We also need to provide for the calendar's holidays, which exist outside of any month. For our purposes, though...
-    We could just include them in the month for the code and format the result?
+    Time from epoch begins at day 0, as 0 days have passed since the epoch.
+    Therefore, we add +1 day to our day calculations to begin at day 1 rather than day 0.
+    */
 
-    - Consider alternate ways of mapping days to months; the TreeMap might be making it more annoying
-
-    Will clean up the code at the end and assign variables in the constructor where best practice.
-     */
     public int getYear() {
         int days = (int) TimeUnit.MILLISECONDS.toDays(harptosTime) + 1;
         int startYear = 3000; // can make this configurable
@@ -67,8 +84,7 @@ public class HarptosCalendar {
         return monthMap.floorEntry(days).getValue();
     }
 
-    // TODO: Get current month as an integer in case we want to describe it in integer form (probably do.)
-    // No use case - ignore
+    // As written, this does not work if the days since epoch is less than 365.
 
     public int getDayOfMonth() {
         int days = (int) TimeUnit.MILLISECONDS.toDays(harptosTime) + 1;
@@ -77,19 +93,6 @@ public class HarptosCalendar {
         return dayOfMonth;
     }
 
-    /*
-    Potential problems with the below?
-
-    - First, need to verify the math checks out (which I think it does, just hard to calculate minutes & hours beyond small examples).
-    It seemed to work fine on testing with 10,000,000,000 milliseconds (roughly 4 years).
-
-    - It's a lot of math to do? I don't think a computer would have any problem with this at all..?
-    - Assuming we run these calculations every 10 seconds.
-    - I'm pretty sure a computer runs 10^9 quadrilliion (definitely the real number) more calculations than this every 10 seconds....
-
-    TODO: Will have to update this to consider the +1 shenanigans later on.
-
-     */
     public LocalTime getCalendarTime() {
         int days = (int) TimeUnit.MILLISECONDS.toDays(harptosTime) + 1;
 
