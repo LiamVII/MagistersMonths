@@ -1,4 +1,8 @@
-name: Magister's Months
+name: MagistersMonths
 version: 0.1.0
-main: io.gitbuy.liamvi.magistersmonths.MagistersMonths
+main: io.github.liamvi.magistersmonths.MagistersMonths
 api-version: 1.19
+commands:
+  calendar:
+    description: Request the current date & time.
+    usage: /calendar

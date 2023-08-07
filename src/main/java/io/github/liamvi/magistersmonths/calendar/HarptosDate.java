@@ -1,28 +1,33 @@
 package io.github.liamvi.magistersmonths.calendar;
 
+import io.github.liamvi.magistersmonths.MagistersMonths;
+
+import java.time.Instant;
 import java.util.Date;
 
-public class HarptosDate extends Date {
+public class HarptosDate {
 
-    //HarptosDate is only used to extend the Date object with useful methods for calculating time on the Harptos calendar.
-    //It should not be involved in calculating the current temporal position on the Harptos calendar.
-
-    private final long EPOCHDATETIME = 0; // filler for now, will eventually pull from config files.
-
-    public HarptosDate() {
-        super();
+    private final long EPOCHDATETIME;
+    private final Instant instant;
+    public HarptosDate(MagistersMonths plugin) {
+        this.EPOCHDATETIME = plugin.getConfigEpoch();
+        instant = Instant.now();
     }
 
     public long getRealTime() {
-        return super.getTime();
+        return instant.toEpochMilli();
     }
 
     // Calculate the difference between the epoch and current real time, then multiply the result by 3.
     // The result will be 3x longer than the time passed in the real world, thus speeding time by 3x.
     // This allows for a deterministic calculation of Harptos datetime so long as you know the epoch.
     public long getHarptosTime() {
-        long realTime = super.getTime();
-        return (EPOCHDATETIME - realTime) * 3;
+        long realTime = instant.toEpochMilli();
+        return (realTime - EPOCHDATETIME) * 3;
+    }
+
+    public long getEpoch() {
+        return EPOCHDATETIME;
     }
 
 

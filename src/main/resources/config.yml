@@ -1,0 +1,9 @@
+## Magister's Month Config ##
+
+# Epoch time, expressed as a value in milliseconds. Auto-generated when plugin is first enabled.
+# This is the calendar's "Day 1, Month 1, Year 1, 00:00" time. If you lose it, time will reset.
+epoch-time: 1690499585
+
+# The name of your main world.
+world: world
+
