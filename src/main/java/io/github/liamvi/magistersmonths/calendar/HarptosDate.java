@@ -1,13 +1,16 @@
 package io.github.liamvi.magistersmonths.calendar;
 
+import io.github.liamvi.magistersmonths.MagistersMonths;
+
 import java.time.Instant;
 import java.util.Date;
 
 public class HarptosDate {
 
-    private final long EPOCHDATETIME = 0; // filler for now, will eventually pull from config files.
+    private final long EPOCHDATETIME;
     private final Instant instant;
-    public HarptosDate() {
+    public HarptosDate(MagistersMonths plugin) {
+        this.EPOCHDATETIME = plugin.getConfigEpoch();
         instant = Instant.now();
     }
 

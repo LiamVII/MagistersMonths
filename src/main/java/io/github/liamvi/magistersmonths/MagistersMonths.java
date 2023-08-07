@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.Objects;
 
@@ -27,9 +28,8 @@ public class MagistersMonths extends JavaPlugin {
             getLogger().info("ERROR: World defined in configuration is invalid. Day/night cycles will not work.");
         }
         // Checking if epoch date exists, and if not, auto-generating it as the current time in milliseconds.
-        if (Objects.equals(this.getConfig().getString("epoch-time"), "blank")) { // better way to do this?
-            Date today = new Date();
-            this.getConfig().set("epoch-time", Long.toString(today.getTime()));
+        if (Objects.equals(this.getConfig().getString("epoch-time"), null)) {
+            this.getConfig().set("epoch-time", Instant.now().toEpochMilli());
         }
         getCommand("calendar").setExecutor(new CalendarCommand(this));
     }
@@ -46,8 +46,8 @@ public class MagistersMonths extends JavaPlugin {
         String epochTime = this.getConfig().getString("epoch-time");
         if (epochTime != null) {
             return Long.parseLong(epochTime);
-        } else { // I will probably delete this once the epoch-time auto-generation is done.
-            getLogger().info("You have not defined an epoch-time in the config.yml!");
+        } else {
+            getLogger().info("Error in epoch-time auto generation.");
             throw new NullPointerException();
         }
     }

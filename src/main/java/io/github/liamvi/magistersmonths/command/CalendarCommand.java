@@ -19,7 +19,7 @@ public class CalendarCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        HarptosDate date = new HarptosDate();
+        HarptosDate date = new HarptosDate(plugin);
         HarptosCalendar calendar = new HarptosCalendar(date, plugin);
         HarptosDateFormat format = new HarptosDateFormat(calendar);
         commandSender.sendMessage(format.getFormattedDate());
